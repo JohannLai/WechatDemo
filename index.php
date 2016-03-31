@@ -1,6 +1,7 @@
 <?php
 require_once "lib.php";
 require_once "send_text_msg.php";
+include_once dirname(__FILE__).'/common/SingleTableOperation.php';
 //require_once "downloadfile.php";
 
 
@@ -70,6 +71,7 @@ $menudata = ' {
 //print_r($info);
 
 $get_msg_url = "https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=".ACCESS_TOKEN;
+
 
 $rand_area = "520";  //设置场景的ID值
 
