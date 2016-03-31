@@ -1,9 +1,9 @@
 <?php
 include_once dirname(__FILE__).'/GlobalDefine.php';
-include_once dirname(__FILE__).'/ParamChecker.php';
-include_once dirname(__FILE__).'/MiniLog.php';
+//include_once dirname(__FILE__).'/ParamChecker.php';
+//include_once dirname(__FILE__).'/MiniLog.php';
 /**
- * 
+ *
  * 参数检查方法
  * @param array $rules
  * @param array $args
@@ -39,16 +39,16 @@ $rules = array(
 
 对应的rules：
  $rules = array( 'wsName' => 'string',
-            'blocks' => array( 'type' => 'array', 
+            'blocks' => array( 'type' => 'array',
                 'elem' => array( 'type' => 'object',
                     'items' => array(
-                        'ipName' => 'ip', 
-                        'blockCnt' => array('int', 'range' => '[1,+)'), 
+                        'ipName' => 'ip',
+                        'blockCnt' => array('int', 'range' => '[1,+)'),
                         'alterBlockCnt' => 'int',
-                     ) 
+                     )
                 )
              )
-        ); 
+        );
 
  */
 function checkParam($rules = array(), &$args) {
@@ -90,7 +90,7 @@ function ccdb_log($confName ,$logLevel, $errorCode, $logMessage = "no error msg"
 	if (isLogLevelOff($logLevel)){
 		return;
 	}
-	
+
 	$st = debug_backtrace();
 
 	$function = ''; //调用interface_log的函数名
@@ -106,9 +106,9 @@ function ccdb_log($confName ,$logLevel, $errorCode, $logMessage = "no error msg"
 			$line = $item['line'];
 		}
 	}
-	
+
 	$function = $function ? $function : 'main';
-	
+
 	//为了缩短日志的输出，file只取最后一截文件名
 	$file = explode("/", rtrim($file, '/'));
 	$file = $file[count($file)-1];
@@ -172,7 +172,7 @@ function getIp()
 /**
  * @desc 封装curl的调用接口，post的请求方式
  */
-function doCurlPostRequest($url, $requestString, $timeout = 5) {   
+function doCurlPostRequest($url, $requestString, $timeout = 5) {
 	if($url == "" || $requestString == "" || $timeout <= 0){
 		return false;
 	}
@@ -185,7 +185,7 @@ function doCurlPostRequest($url, $requestString, $timeout = 5) {
     curl_setopt($con, CURLOPT_TIMEOUT, (int)$timeout);
 
     return curl_exec($con);
-}  
+}
 
 /**
  * @desc 封装curl的调用接口，get的请求方式
@@ -195,9 +195,9 @@ function doCurlGetRequest($url, $data = array(), $timeout = 10) {
 		return false;
 	}
 	if($data != array()) {
-		$url = $url . '?' . http_build_query($data);	
+		$url = $url . '?' . http_build_query($data);
 	}
-	
+
 	$con = curl_init((string)$url);
 	curl_setopt($con, CURLOPT_HEADER, false);
 	curl_setopt($con, CURLOPT_RETURNTRANSFER,true);
@@ -206,11 +206,11 @@ function doCurlGetRequest($url, $data = array(), $timeout = 10) {
 	return curl_exec($con);
 }
 
-function getCurrentTime() 
-{   
+function getCurrentTime()
+{
 	date_default_timezone_set('PRC');
 	$secondTime = time();
-	return date('Y-m-d H:i:s', $secondTime);	
+	return date('Y-m-d H:i:s', $secondTime);
 }
 
 
@@ -218,12 +218,12 @@ function getCurrentTime()
 //获取当前时间，毫秒级别,如果startTime传入，则计算当前时间与startTime的时间差
 function getMillisecond($startTime = false) {
 	$endTime = microtime(true) * 1000;
-		
+
 	if($startTime !== false) {
 		$consumed = $endTime - $startTime;
 		return round($consumed);
 	}
-		
+
 	return $endTime;
 }
 
